@@ -1,0 +1,16 @@
+{
+  "projectName": "core-project",
+  "mode": "code-router",
+  "typescript": true,
+  "tailwind": true,
+  "packageManager": "npm",
+  "git": true,
+  "version": 1,
+  "framework": "react-cra",
+  "chosenAddOns": [
+    "eslint",
+    "form",
+    "module-federation",
+    "tanstack-query"
+  ]
+}

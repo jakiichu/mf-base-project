@@ -1,0 +1,38 @@
+import { defineConfig } from "vite";
+import viteReact from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { federation } from "@module-federation/vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+    plugins: [
+        viteReact(),
+        tailwindcss(),
+        tsconfigPaths(),
+        federation({
+            name: "admin",
+            filename: "remoteEntry.js",
+            exposes: {
+                "./router": "./remoteEntry.ts",
+            },
+            shared: {
+                react: {
+                    singleton: true,
+                    requiredVersion: undefined,
+                    strictVersion: undefined,
+                },
+                "react-dom": {
+                    singleton: true,
+                    requiredVersion: undefined,
+                    strictVersion: undefined,
+                },
+                "@tanstack/react-router": {
+                    singleton: true,
+                    requiredVersion: undefined,
+                    strictVersion: undefined,
+                },
+            },
+        }),
+    ],
+});

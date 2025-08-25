@@ -1,0 +1,18 @@
+{
+  "projectName": "admin-project",
+  "mode": "code-router",
+  "typescript": true,
+  "tailwind": true,
+  "packageManager": "npm",
+  "git": true,
+  "version": 1,
+  "framework": "react-cra",
+  "chosenAddOns": [
+    "eslint",
+    "module-federation",
+    "form",
+    "store",
+    "table",
+    "tanstack-query"
+  ]
+}
