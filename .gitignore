@@ -1,4 +1,4 @@
-apps/**/node_modules
+
 node_modules
 .DS_Store
 dist
@@ -8,3 +8,10 @@ count.txt
 .env
 .nitro
 .tanstack
+.idea
+
+apps/**/.env
+apps/**/.__mf__temp
+apps/**/.vscode
+apps/**/node_modules
+packages/**/dist
