@@ -1,3 +1,8 @@
+/* apps/core/src/styles.css */
 @import "tailwindcss";
 
-@source "./src/**/*.{ts,tsx,js,jsx,html}";
+/* Сканируем весь монорепозиторий: admin, main, shared и т.д. */
+/* Важно: пути ПЕРЕЧИСЛЕНЫ ЯВНО и оканчиваются на расширения */
+@source "../../admin-project/src/**/*.{ts,tsx,js,jsx,html,css}"
+@source "../../main-project/src/**/*.{ts,tsx,js,jsx,html,css}"
+@source "../../packages/shared/src/**/*.{ts,tsx,js,jsx,html,css}"

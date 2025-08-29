@@ -8,31 +8,39 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build -ws",
-    "dev:admin": "npm run dev -w admin-project",
-    "dev:core": "npm run dev -w core-project",
-    "dev:main": "npm run dev -w main-project",
-    "dev:shared": "npm run dev -w shared",
-    "dev": "npm run dev -ws",
+    "dev": "npm-run-all -p dev:admin dev:main dev:core",
+    "dev:admin": "npm --workspace=@apps/admin run dev",
+    "dev:main": "npm --workspace=@apps/main run dev",
+    "dev:core": "npm --workspace=@apps/core run dev",
+    "build": "npm-run-all -s build:shared build:admin build:main build:core",
+    "build:shared": "npm --workspace=@shared/core run build",
+    "build:admin": "npm --workspace=@apps/admin run build",
+    "build:main": "npm --workspace=@apps/main run build",
+    "build:core": "npm --workspace=@apps/core run build",
+    "preview": "npm-run-all -p preview:main preview:admin preview:core",
+    "preview:core":  "npm --workspace=@apps/core run preview -- --port 5173",
+    "preview:main":   "npm --workspace=@apps/main run preview -- --port 5174",
+    "preview:admin": "npm --workspace=@apps/admin run preview -- --port 5175",
     "lint": "eslint",
     "format": "prettier",
     "check": "prettier --write . && eslint --fix"
   },
   "devDependencies": {
-    "@tanstack/eslint-config": "^0.3.0",
-    "prettier": "^3.5.3",
-    "typescript": "^5.7.2"
+    "@tanstack/eslint-config": "^0.3.1",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "@module-federation/vite": "^1.7.1",
     "@shared/core": "workspace:*",
     "@tailwindcss/vite": "^4.1.12",
-    "@tanstack/react-router": "^1.56.0",
+    "@tanstack/react-router": "^1.131.27",
     "@vitejs/plugin-react": "^5.0.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.12",
-    "vite": "^7.1.3"
+    "vite": "^7.1.3",
+    "npm-run-all": "^4.1.5"
   },
   "description": "Welcome to your new TanStack app!",
   "main": "index.js",

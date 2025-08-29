@@ -1,6 +1,6 @@
 {
   "include": ["**/*.ts", "**/*.tsx", "eslint.config.js", "prettier.config.js", "vite.config.js"],
-  
+
   "compilerOptions": {
     "target": "ES2022",
     "jsx": "react-jsx",
@@ -24,6 +24,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@shared/core": [
+        "../../packages/shared/src/index.ts"
+      ],
+      "@shared/core/*": [
+        "../../packages/shared/src/*"
+      ]
     }
   }
 }

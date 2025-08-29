@@ -1,52 +1,50 @@
 import { defineConfig } from "vite";
-import viteReact from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { federation } from "@module-federation/vite";
+import tailwindcss from "@tailwindcss/vite";
 
-// https://vitejs.dev/config/
 export default defineConfig({
+    base: "http://localhost:5173",
     plugins: [
-        viteReact(),
-        tailwindcss(),
         tsconfigPaths(),
+        react(),
+        tailwindcss(),
         federation({
             name: "core",
             remotes: {
-                admin: {
-                    type: "module",
-                    name: "admin",
-                    entry: "http://localhost:5175/remoteEntry.js",
-                },
                 main: {
                     type: "module",
                     name: "main",
                     entry: "http://localhost:5174/remoteEntry.js",
+                    entryGlobalName: "http://localhost:5174/remoteEntry.js",
+                },
+                admin: {
+                    type: "module",
+                    name: "admin",
+                    entry: "http://localhost:5175/remoteEntry.js",
+                    entryGlobalName: "http://localhost:5175/remoteEntry.js",
                 },
             },
-
             shared: {
                 react: {
                     singleton: true,
-                    requiredVersion: undefined,
-                    strictVersion: undefined,
                 },
                 "react-dom": {
                     singleton: true,
-                    requiredVersion: undefined,
-                    strictVersion: undefined,
                 },
                 "@tanstack/react-router": {
                     singleton: true,
-                    requiredVersion: undefined,
-                    strictVersion: undefined,
                 },
             },
         }),
     ],
+    server: { port: 5173, strictPort: true },
+    preview: { port: 5173 },
     resolve: {
         preserveSymlinks: true,
         dedupe: ["react", "react-dom", "@tanstack/react-router"],
     },
     optimizeDeps: { exclude: ["@shared/core"] },
+    build: { target: "chrome89" },
 });

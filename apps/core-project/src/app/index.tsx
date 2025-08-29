@@ -6,28 +6,29 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import { QueryClient } from "@tanstack/react-query";
+import { Fragment } from "react";
 import { Error } from "@shared/core";
-import type { RootRoute } from "@tanstack/react-router";
 
 interface IRootContext {
     queryClient: QueryClient;
 }
 
 const { mainRouter } = await import("main/router");
+const { adminRouter } = await import("admin/router");
 
 const rootRoute = createRootRouteWithContext<IRootContext>()({
     component: () => (
-        <>
-            <Error></Error>
+        <Fragment>
             <Outlet />
             <TanStackRouterDevtools />
-        </>
+        </Fragment>
     ),
+    notFoundComponent: () => <Error />,
 });
 
 const routeTree = rootRoute.addChildren([
-    mainRouter(rootRoute as unknown as RootRoute),
-    // adminRouter(rootRoute as unknown as RootRoute),
+    mainRouter(rootRoute),
+    adminRouter(rootRoute),
 ]);
 
 const queryClient = new QueryClient();

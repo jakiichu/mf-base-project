@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router'
+import type { ReactNode } from 'react'
 
 const Main = (): ReactNode => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleOnRedirect = (to: string): void => {
-    void navigate({ to });
-  };
+    void navigate({ to })
+  }
 
   return (
     <div>
@@ -18,7 +18,7 @@ const Main = (): ReactNode => {
         Кнопка: User
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Main;
+export default Main

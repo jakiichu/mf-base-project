@@ -1,43 +1,33 @@
 import { defineConfig } from 'vite'
-import viteReact from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { federation } from '@module-federation/vite'
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  base: 'http://localhost:5174',
   plugins: [
-    viteReact(),
-    tailwindcss(),
     tsconfigPaths(),
+    react(),
     federation({
       name: 'main',
       filename: 'remoteEntry.js',
       exposes: {
-        './router': './src/remoteEntry.ts',
+        './router': './src/main.tsx',
       },
       shared: {
         react: {
           singleton: true,
-          requiredVersion: undefined,
-          strictVersion: undefined,
         },
         'react-dom': {
           singleton: true,
-          requiredVersion: undefined,
-          strictVersion: undefined,
         },
         '@tanstack/react-router': {
           singleton: true,
-          requiredVersion: undefined,
-          strictVersion: undefined,
         },
       },
     }),
   ],
-  resolve: {
-    preserveSymlinks: true,
-    dedupe: ['react', 'react-dom', '@tanstack/react-router', '@shared/core'],
-  },
-  optimizeDeps: { exclude: ['@shared/core'] },
+  server: { port: 5174, strictPort: true, cors: true },
+  preview: { port: 5174 },
+  build: { target: 'chrome89' },
 })

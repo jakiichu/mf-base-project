@@ -4,7 +4,7 @@ import { adapterRouter } from '@shared/core'
 const mainRouter = adapterRouter(
   {
     id: 'app',
-    component: () => <Outlet />,
+    component: Outlet,
   },
   [
     {
